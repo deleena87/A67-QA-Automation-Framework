@@ -63,20 +63,31 @@ public class BaseTest
     public void clickPlaylist1()
     {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement playlist1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/playlist/102555']")));
+        WebElement playlist1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/playlist/102698']")));
         playlist1.click();
     }
     public void deletePlaylist() throws InterruptedException
     {
         Thread.sleep(2000);
-        WebElement deletePlaylistBtn = driver.findElement(By.xpath("//button[@class='del btn-delete-playlist']"));
+        WebElement deletePlaylistBtn = driver.findElement(By.xpath("//button[@title='Delete this playlist']"));
         deletePlaylistBtn.click();
+    }
+    public void confirmationMessage() throws InterruptedException
+    {
+        Thread.sleep(5000);
+        WebElement message = driver.findElement(By.xpath("//p[@class='msg']"));
+        Assert.assertTrue(message.isDisplayed());
+    }
+    public void clickOk() throws InterruptedException {
+        Thread.sleep(2000);
+        WebElement okBtn = driver.findElement(By.xpath("//button[@class='ok']"));
+        okBtn.click();
     }
     public void messageDisplayed()
     {
-        String expectedMessage = "Deleted playlist \"1st playlist.\"";
+        String expectedMessage = "Deleted playlist \"2nd playlist.\"";
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'success') and contains(text(), 'Deleted playlist')]")));
+        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='success show']")));
         String actualMessage = notification.getText();
         Assert.assertEquals(actualMessage,expectedMessage);
     }

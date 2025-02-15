@@ -11,6 +11,8 @@ public class Homework19Test extends BaseTest
         verifyLoginSuccess();
         clickPlaylist1();
         deletePlaylist();
+        confirmationMessage();
+        clickOk();
         messageDisplayed();
         closeBrowser();
     }
