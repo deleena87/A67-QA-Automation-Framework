@@ -9,7 +9,11 @@ public class Homework19Test extends BaseTest
         passwordInput();
         clickSubmit();
         verifyLoginSuccess();
-        clickPlaylist1();
+        addNewPlaylist();
+        chooseNewPlaylist();
+        playlistNameInput();
+        verifyPlaylistCreated();
+        clickNewPlaylist();
         deletePlaylist();
         confirmationMessage();
         clickOk();
