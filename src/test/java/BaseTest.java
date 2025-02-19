@@ -63,6 +63,17 @@ public class BaseTest
         WebElement avatarIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@class='avatar']")));
         Assert.assertTrue(avatarIcon.isDisplayed());
     }
+    public void waitPlusBtn ()
+{
+        WebElement waitPlus = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@class='queue']")));
+        waitPlus.click();
+        WebElement waitPlus1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@class='songs']")));
+        waitPlus1.click();
+        WebElement waitPlus2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@class='albums']")));
+        waitPlus2.click();
+       // WebElement waitPlus3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@class='artists active']")));
+        //waitPlus3.click();
+}
     public void addNewPlaylist()
     {
         WebElement addPlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@data-testid='sidebar-create-playlist-btn'][1]")));
@@ -79,9 +90,9 @@ public class BaseTest
         return "Playlist_" + UUID.randomUUID().toString().substring(0, 8);
     }
     public void playlistNameInput()
-    {   String randomPlaylistName = generateRandomName();
+    {   String PlaylistName = "NewPlaylist";
         WebElement textField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='↵ to save']")));
-        textField.sendKeys(randomPlaylistName + Keys.ENTER);
+        textField.sendKeys(PlaylistName + Keys.ENTER);
     }
     public void verifyPlaylistCreated()
     {
@@ -111,8 +122,8 @@ public class BaseTest
     }
     public void messageDisplayed()
     {
-        String expectedMessage = "Deleted playlist \"2nd playlist.\"";
-        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='success show']")));
+        String expectedMessage = "Deleted playlist \"NewPlaylist.\"";
+        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Deleted playlist')]")));
         String actualMessage = notification.getText();
         Assert.assertEquals(actualMessage,expectedMessage);
     }
