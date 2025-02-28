@@ -24,8 +24,10 @@ public class HomeTests extends BaseTest
     }
 
     @Test
-    public void renamePlaylist ()
+    @Parameters({"baseURL"})
+    public void renamePlaylist (String baseURL)
     {
+        launchBrowser(baseURL);
         homePage.waitPlusBtn();
         homePage.doubleClickPlaylist1();
         homePage.renamePlaylist("NewPlaylist");
