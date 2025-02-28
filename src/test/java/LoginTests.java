@@ -8,7 +8,6 @@ public class LoginTests extends BaseTest
     @Test
     public void login ()
     {
-        launchBrowser("https://qa.koel.app/");
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.emailInput("elena.skrynnikova@testpro.io");

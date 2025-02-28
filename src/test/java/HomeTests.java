@@ -9,25 +9,9 @@ import org.testng.annotations.Test;
 
 public class HomeTests extends BaseTest
 {
-    WebDriver driver;
-    HomePage homePage;
-    LoginPage loginPage;
-
-    @BeforeMethod
-    @Parameters({"baseURL"})
-    public void setUp (String baseURL)
-    {
-        driver = new ChromeDriver();
-        homePage = new HomePage(driver);
-        loginPage = new LoginPage(driver);
-        driver.get(baseURL);
-    }
-
     @Test
-    @Parameters({"baseURL"})
     public void renamePlaylist (String baseURL)
     {
-        launchBrowser(baseURL);
         homePage.waitPlusBtn();
         homePage.doubleClickPlaylist1();
         homePage.renamePlaylist("NewPlaylist");

@@ -16,17 +16,17 @@ import java.time.Duration;
 
 public class BaseTest
 {
-    public static WebDriver driver = null;
-    public static String url = null;
-    public static WebDriverWait wait = null;
-    public static Actions actions = null;
-    public static ChromeOptions options = null;
+    public WebDriver driver = null;
+    public String url = null;
+    public WebDriverWait wait = null;
+    public Actions actions = null;
+    public ChromeOptions options = null;
     LoginPage loginPage;
     HomePage homePage;
 
 
     @BeforeSuite
-    static void setupClass() { WebDriverManager.chromedriver().setup();}
+    public void setupClass() { WebDriverManager.chromedriver().setup();}
 
     @BeforeMethod
     @Parameters({"baseURL"})
