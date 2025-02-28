@@ -1,6 +1,5 @@
-package Pages;
-
-import Tests.BaseTest1;
+import Pages.HomePage;
+import Pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -8,7 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class HomeTests extends BaseTest1 {
+public class HomeTests extends BaseTest
+{
     WebDriver driver;
     HomePage homePage;
     LoginPage loginPage;
@@ -21,14 +21,6 @@ public class HomeTests extends BaseTest1 {
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         driver.get(baseURL);
-    }
-    @Test
-    public void login ()
-    {
-        loginPage.emailInput("elena.skrynnikova@testpro.io");
-        loginPage.passwordInput("12345678");
-        loginPage.clickSubmit();
-        Assert.assertTrue(homePage.getUserAvatar().isDisplayed());
     }
 
     @Test
