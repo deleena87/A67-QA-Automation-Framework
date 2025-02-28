@@ -26,6 +26,7 @@ public class HomeTests extends BaseTest
     @Test
     public void renamePlaylist ()
     {
+        homePage.waitPlusBtn();
         homePage.doubleClickPlaylist1();
         homePage.renamePlaylist("NewPlaylist");
         String successMsg = homePage.getUpdatedPlaylistSuccessMsg();
