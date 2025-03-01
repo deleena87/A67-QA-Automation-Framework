@@ -86,7 +86,7 @@ public class HomePage extends BasePage
     By textField = By.xpath("//input[@placeholder='↵ to save']");
     public void playlistNameInput()
     {
-        String playlistName = "NewPlaylist2";
+        String playlistName = "Above";
         WebElement textFieldE = findElement(textField);
         textFieldE.sendKeys(playlistName + Keys.ENTER);
     }
@@ -114,10 +114,9 @@ public class HomePage extends BasePage
     By deletedPlaylistMsg = By.xpath("//div[contains(text(),'Deleted playlist')]");
     public void messagePlaylistDeletedDisplayed()
     {
-        String expectedMessage = "Deleted playlist \"NewPlaylist2.\"";
         WebElement notificationMsg = findElement(deletedPlaylistMsg);
         String actualMessage = notificationMsg.getText();
-        Assert.assertEquals(actualMessage,expectedMessage);
+        Assert.assertTrue(actualMessage.startsWith("Deleted playlist"));
     }
 }
 

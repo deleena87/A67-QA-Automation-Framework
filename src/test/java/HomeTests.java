@@ -10,8 +10,13 @@ import org.testng.annotations.Test;
 public class HomeTests extends BaseTest
 {
     @Test
-    public void renamePlaylist ()
-    {
+    public void renamePlaylist() throws InterruptedException {
+        homePage.waitPlusBtn();
+        homePage.addNewPlaylistBtn();
+        Thread.sleep(2000);
+        homePage.chooseNewPlaylist();
+        homePage.playlistNameInput();
+        homePage.verifyPlaylistCreated();
         homePage.waitPlusBtn();
         homePage.doubleClickPlaylist1();
         homePage.renamePlaylist("NewPlaylist");
