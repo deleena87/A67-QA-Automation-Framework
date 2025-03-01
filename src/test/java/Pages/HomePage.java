@@ -55,6 +55,7 @@ public class HomePage extends BasePage
         By currentQueue = By.xpath("//a[@class='queue']");
         By allSongs = By.xpath("//a[@class='songs']");
         By albums = By.xpath("//a[@class='albums']");
+        By artists = By.xpath("//a[@class='artists']");
 
     public void waitPlusBtn ()
     {
@@ -64,6 +65,8 @@ public class HomePage extends BasePage
         waitPlus1.click();
         WebElement waitPlus2 = findElement(albums);
         waitPlus2.click();
+        WebElement waitPlus3 = findElement(artists);
+        waitPlus3.click();
     }
 
     By addPlaylistBtn = By.xpath("//i[@data-testid='sidebar-create-playlist-btn'][1]");
