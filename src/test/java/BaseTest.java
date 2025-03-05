@@ -1,11 +1,66 @@
+import Pages.HomePage;
+import Pages.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
+import com.github.javafaker.Faker;
+
+
+import java.time.Duration;
+import java.util.Locale;
 
 public class BaseTest {
+    public WebDriver driver = null;
+    public String url = null;
+    public WebDriverWait wait = null;
+    public Actions actions = null;
+    public ChromeOptions options = null;
+    LoginPage loginPage;
+    HomePage homePage;
 
     @BeforeSuite
-    static void setupClass() {
-        WebDriverManager.chromedriver().setup();
+    public void setupClass() { WebDriverManager.chromedriver().setup();}
+
+    @BeforeMethod
+    @Parameters({"baseURL"})
+    public void launchBrowser(String baseURL)
+    {
+        options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-notifications");
+        driver=new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.get(baseURL);
+
+        loginPage = new LoginPage(driver);
+        homePage = new HomePage(driver);
+
+        loginPage.emailInput("elena.skrynnikova@testpro.io")
+                .passwordInput("12345678")
+                .clickSubmit();
+                Assert.assertTrue(homePage.getUserAvatar().isDisplayed());
+    }
+    @AfterMethod
+    public void tearDown() { if (driver != null) { driver.quit(); }}
+
+    public String generateRandomName(){
+        Faker faker = new Faker(new Locale("en-US"));
+        String newName = faker.name().firstName();
+        return newName;
+    }
+    public String generateRandomCountryName(){
+        Faker faker = new Faker(new Locale("en-US"));
+        String newName = faker.address().country();
+        return newName;
     }
 }
