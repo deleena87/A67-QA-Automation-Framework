@@ -17,14 +17,18 @@ public class BasePage {
     public BasePage (WebDriver givenDriver)
     {
         driver = givenDriver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public WebElement findElement (By locator)
-    {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    public void waitForElementToBeClickable(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
-
+    public void waitForVisibility(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    public void navigateToHomePage() {
+        driver.get("https://qa.koel.app/#!/home");
+    }
 }
