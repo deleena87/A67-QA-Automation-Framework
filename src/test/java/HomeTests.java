@@ -56,5 +56,13 @@ public void renamePlaylist() throws InterruptedException {
         Thread.sleep(2000);
                 homePage.verifyNotificationMessage();
     }
+    @Test
+    public void playSongWithContextClick () throws InterruptedException {
+        homePage = new HomePage(driver);
+        homePage.clickAllSongs()
+                .clickSongContextClick()
+                .choosePlayOption();
+        Thread.sleep(2000);
+    }
 
 }

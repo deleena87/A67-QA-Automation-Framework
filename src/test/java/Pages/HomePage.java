@@ -232,4 +232,17 @@ public class HomePage extends BasePage {
         Assert.assertTrue(actualMessage.startsWith("Added 1 song into"));
         return this;
     }
+
+    @FindBy (xpath = "//li[@class='playback']")
+    WebElement playOption;
+    public HomePage clickSongContextClick (){
+        waitForVisibility(firstSong);
+        actions.contextClick(firstSong).perform();
+        return this;
+    }
+    public HomePage choosePlayOption(){
+        waitForVisibility(playOption);
+        playOption.click();
+        return this;
+    }
 }
