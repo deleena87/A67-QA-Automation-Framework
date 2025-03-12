@@ -86,9 +86,6 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    @FindBy(xpath = "//input[@placeholder='↵ to save']")
-    WebElement textField;
-
     /*public String generateRandomName() {
         Faker faker = new Faker(new Locale("en-US"));
         return faker.name().firstName();
@@ -99,8 +96,15 @@ public class HomePage extends BasePage {
         return faker.address().country();
     }*/
 
-    public HomePage playlistNameInput() {
+    @FindBy(xpath = "//input[@placeholder='↵ to save']")
+    WebElement textField;
+
+    public HomePage playlistNameInput() throws InterruptedException {
         String playlistName = "AboveSky";
+        waitForVisibility(textField);
+        waitForElementToBeClickable(textField);
+        textField.click();
+        Thread.sleep(500);
         textField.sendKeys(playlistName + Keys.ENTER);
         return this;
     }
@@ -216,10 +220,10 @@ public class HomePage extends BasePage {
     }
 
     @FindBy(xpath = "//ul[contains(@data-v-2891d9df,'')]//li[contains(text(),'AboveSky')]")
-    WebElement playlistFavorites;
+    WebElement playlist;
 
     public HomePage choosePlaylist() {
-        playlistFavorites.click();
+        playlist.click();
         return this;
     }
 

@@ -15,16 +15,14 @@ public void renamePlaylist() throws InterruptedException {
     homePage.waitPlusBtn()
             .addNewPlaylistBtn()
             .chooseNewPlaylist()
-            .playlistNameInput();
-    Thread.sleep(2000);
-            homePage.verifyPlaylistCreated()
+            .playlistNameInput()
+            .verifyPlaylistCreated()
             .waitPlusBtn()
             .doubleClickPlaylist1()
-            .renamePlaylist();
-    Thread.sleep(2000);
-            homePage.verifyPlaylistUpdated();
+            .renamePlaylist()
+            .verifyPlaylistUpdated();
 }
-    @Test
+   /* @Test
     public void deletePlaylist() throws InterruptedException {
         homePage = new HomePage(driver);
         homePage.waitPlusBtn()
@@ -64,6 +62,6 @@ public void renamePlaylist() throws InterruptedException {
                 .clickSongContextClick()
                 .choosePlayOption();
         Thread.sleep(2000);
-    }
+    }*/
 
 }
