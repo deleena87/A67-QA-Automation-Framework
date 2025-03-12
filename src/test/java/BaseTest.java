@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -22,9 +24,7 @@ import java.time.Duration;
 
 public class BaseTest {
     public WebDriver driver = null;
-    public String url = null;
     public WebDriverWait wait = null;
-    public Actions actions = null;
     public ChromeOptions options = null;
     LoginPage loginPage;
     HomePage homePage;
@@ -36,6 +36,7 @@ public class BaseTest {
     @Parameters({"baseURL"})
     public void launchBrowser(String baseURL) throws MalformedURLException {
         driver = pickBrowser(System.getProperty("browser"));
+        options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--start-maximized");
         options.addArguments("--disable-notifications");
@@ -55,27 +56,41 @@ public class BaseTest {
     public void tearDown() { if (driver != null) { driver.quit(); }}
 
     public WebDriver pickBrowser (String browser) throws MalformedURLException {
-        String gridURL = "http://192.168.1.157:4444";
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        switch (browser) {
+        String gridURL = "http://192.168.1.158:4444/ui/";
+
+        switch (browser.toLowerCase()) {
+
             case "chrome":
                 WebDriverManager.chromedriver().setup();
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--remote-allow-origins=*");
-                options.addArguments("--disable-notifications");
-                options.addArguments("--start-maximized");
-                driver = new ChromeDriver(options);
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--remote-allow-origins=*");
+                chromeOptions.addArguments("--disable-notifications");
+                chromeOptions.addArguments("--start-maximized");
+                driver = new ChromeDriver(chromeOptions);
+                return driver;
+            case "explorer":
+                WebDriverManager.iedriver().setup();
+                InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+                ieOptions.ignoreZoomSettings();
+                ieOptions.introduceFlakinessByIgnoringSecurityDomains();
+                driver = new InternetExplorerDriver(ieOptions);
                 return driver;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
                 return driver;
             case "grid-chrome":
-                desiredCapabilities.setBrowserName("chrome");
-                driver = new RemoteWebDriver(URI.create(gridURL).toURL(),desiredCapabilities);
+                ChromeOptions gridChromeOptions = new ChromeOptions();
+                driver = new RemoteWebDriver(URI.create(gridURL).toURL(),gridChromeOptions);
+                return driver;
+            case "grid-explorer":
+                InternetExplorerOptions gridIeOptions = new InternetExplorerOptions();
+                gridIeOptions.ignoreZoomSettings();
+                gridIeOptions.introduceFlakinessByIgnoringSecurityDomains();
+                driver = new RemoteWebDriver(URI.create(gridURL).toURL(), gridIeOptions);
                 return driver;
             default:
-                WebDriverManager.safaridriver().setup();
+                WebDriverManager.edgedriver().setup();
                 driver = new SafariDriver();
                 return driver;
         }

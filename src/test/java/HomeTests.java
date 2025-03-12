@@ -3,7 +3,8 @@ import Pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class HomeTests extends BaseTest {
+public class
+HomeTests extends BaseTest {
     HomePage homePage;
     BasePage basePage;
 
