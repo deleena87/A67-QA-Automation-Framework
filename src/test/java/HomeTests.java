@@ -19,10 +19,11 @@ public void renamePlaylist() throws InterruptedException {
             .verifyPlaylistCreated()
             .waitPlusBtn()
             .doubleClickPlaylist1()
-            .renamePlaylist()
-            .verifyPlaylistUpdated();
+            .renamePlaylist();
+    Thread.sleep(1000);
+            homePage.verifyPlaylistUpdated();
 }
-   /* @Test
+    @Test
     public void deletePlaylist() throws InterruptedException {
         homePage = new HomePage(driver);
         homePage.waitPlusBtn()
@@ -58,10 +59,12 @@ public void renamePlaylist() throws InterruptedException {
     @Test
     public void playSongWithContextClick () throws InterruptedException {
         homePage = new HomePage(driver);
+        basePage = new BasePage(driver);
+        basePage.navigateToHomePage();
         homePage.clickAllSongs()
                 .clickSongContextClick()
                 .choosePlayOption();
         Thread.sleep(2000);
-    }*/
+    }
 
 }

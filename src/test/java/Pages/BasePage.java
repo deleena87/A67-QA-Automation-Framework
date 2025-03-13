@@ -31,4 +31,7 @@ public class BasePage {
     public void navigateToHomePage() {
         driver.get("https://qa.koel.app/#!/home");
     }
+    public void waitForTextToBePresentedInElement(WebElement element, String text){
+        wait.until(ExpectedConditions.textToBePresentInElement(element,text));
+    }
 }

@@ -6,8 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-//import com.github.javafaker.Faker;
+import com.github.javafaker.Faker;
 import java.util.Locale;
 
 public class HomePage extends BasePage {
@@ -51,7 +52,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage renamePlaylist() {
-        String newPlaylistName = "UnderTheSky";
+        String newPlaylistName = generateRandomName();
         actions.doubleClick(playlistInputField).perform();
         playlistInputField.sendKeys(Keys.BACK_SPACE);
         playlistInputField.sendKeys(newPlaylistName);
@@ -77,16 +78,17 @@ public class HomePage extends BasePage {
     }
 
 
-    @FindBy(xpath = "//li[@data-testid='playlist-context-menu-create-simple'][1]")
-    WebElement newPlaylist;
+    @FindBy(xpath = "//li[@data-testid='playlist-context-menu-create-simple']")
+    WebElement newPlaylistOption;
 
     public HomePage chooseNewPlaylist() {
-        waitForVisibility(newPlaylist);
-        newPlaylist.click();
+        waitForVisibility(newPlaylistOption);
+        waitForElementToBeClickable(newPlaylistOption);
+        newPlaylistOption.click();
         return this;
     }
 
-    /*public String generateRandomName() {
+    public String generateRandomName() {
         Faker faker = new Faker(new Locale("en-US"));
         return faker.name().firstName();
     }
@@ -94,13 +96,13 @@ public class HomePage extends BasePage {
     public String generateRandomCountryName() {
         Faker faker = new Faker(new Locale("en-US"));
         return faker.address().country();
-    }*/
+    }
 
-    @FindBy(xpath = "//input[@placeholder='↵ to save']")
+    @FindBy(xpath = "//input[@name='name']")
     WebElement textField;
 
     public HomePage playlistNameInput() throws InterruptedException {
-        String playlistName = "AboveSky";
+        String playlistName = generateRandomName();
         waitForVisibility(textField);
         waitForElementToBeClickable(textField);
         textField.click();
@@ -121,10 +123,14 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@class='success show']")
     WebElement successMsgUpdated;
 
-    public HomePage verifyPlaylistUpdated(){
-        String actualMessage = successMsgUpdated.getText();
+    public HomePage verifyPlaylistUpdated() throws InterruptedException {
         waitForVisibility(successMsgUpdated);
-        Assert.assertTrue(actualMessage.startsWith("Updated playlist"));
+        waitForTextToBePresentedInElement(successMsgUpdated, "Updated playlist");
+        Thread.sleep(2000);
+        String actualMessage = successMsgUpdated.getText().trim();
+        System.out.println("Actual Message: " + actualMessage);
+        Assert.assertTrue(actualMessage.startsWith("Updated playlist"),
+                "Expected message to start with 'Updated playlist', but got: " + actualMessage);
         return this;
     }
 
@@ -207,6 +213,7 @@ public class HomePage extends BasePage {
 
     public HomePage clickSong() {
         waitForVisibility(firstSong);
+        waitForElementToBeClickable(firstSong);
         firstSong.click();
         return this;
     }
@@ -215,14 +222,18 @@ public class HomePage extends BasePage {
     WebElement addToButton;
 
     public HomePage clickAddToButton() {
+        waitForVisibility(addToButton);
+        waitForElementToBeClickable(addToButton);
         addToButton.click();
         return this;
     }
 
-    @FindBy(xpath = "//ul[contains(@data-v-2891d9df,'')]//li[contains(text(),'AboveSky')]")
+    @FindBy(xpath = "//li[@tabindex='0' and @class='playlist']")
     WebElement playlist;
 
     public HomePage choosePlaylist() {
+        waitForVisibility(playlist);
+        waitForElementToBeClickable(playlist);
         playlist.click();
         return this;
     }
@@ -230,9 +241,11 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@class='success show']")
     WebElement notificationMsg;
 
-    public HomePage verifyNotificationMessage() {
-        String actualMessage = notificationMsg.getText();
+    public HomePage verifyNotificationMessage() throws InterruptedException {
         waitForVisibility(notificationMsg);
+        waitForTextToBePresentedInElement(notificationMsg, "Added 1 song into");
+        Thread.sleep(2000);
+        String actualMessage = notificationMsg.getText().trim();
         Assert.assertTrue(actualMessage.startsWith("Added 1 song into"));
         return this;
     }
