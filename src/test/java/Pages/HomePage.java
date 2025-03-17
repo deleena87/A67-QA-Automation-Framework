@@ -9,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import com.github.javafaker.Faker;
+
+import java.util.List;
 import java.util.Locale;
 
 public class HomePage extends BasePage {
@@ -60,10 +62,6 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public String getUpdatedPlaylistSuccessMsg() {
-        return updatedPlaylistSuccessMsg.getText();
-    }
-
     public HomePage waitPlusBtn() {
         currentQueue.click();
         allSongs.click();
@@ -76,7 +74,6 @@ public class HomePage extends BasePage {
         addPlaylistBtn.click();
         return this;
     }
-
 
     @FindBy(xpath = "//li[@data-testid='playlist-context-menu-create-simple']")
     WebElement newPlaylistOption;
@@ -114,23 +111,25 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@class='success show']")
     WebElement successMsg;
 
+    public boolean isBannerDisplayed(){
+        waitForVisibility(successMsg);
+        return successMsg.isDisplayed();
+    }
+    public String getBannerText() {
+        return successMsg.getText().trim();
+    }
+
     public HomePage verifyPlaylistCreated () {
-        String actualMessage = successMsg.getText();
-        Assert.assertTrue(actualMessage.startsWith("Created playlist"));
+        Assert.assertTrue(getBannerText().startsWith("Created playlist"));
         return this;
     }
 
-    @FindBy(xpath = "//div[@class='success show']")
-    WebElement successMsgUpdated;
-
     public HomePage verifyPlaylistUpdated() throws InterruptedException {
-        waitForVisibility(successMsgUpdated);
-        waitForTextToBePresentedInElement(successMsgUpdated, "Updated playlist");
+        waitForVisibility(successMsg);
+        waitForTextToBePresentedInElement(successMsg, "Updated playlist");
         Thread.sleep(2000);
-        String actualMessage = successMsgUpdated.getText().trim();
-        System.out.println("Actual Message: " + actualMessage);
-        Assert.assertTrue(actualMessage.startsWith("Updated playlist"),
-                "Expected message to start with 'Updated playlist', but got: " + actualMessage);
+        System.out.println("Actual Message: " + getBannerText());
+        Assert.assertTrue(getBannerText().startsWith("Updated playlist"));
         return this;
     }
 
@@ -260,6 +259,49 @@ public class HomePage extends BasePage {
     public HomePage choosePlayOption(){
         waitForVisibility(playOption);
         playOption.click();
+        return this;
+    }
+    @FindBy (xpath = "((//i[@class='fa fa-heart-o'])[1]")
+    WebElement unlikedSongBtn;
+    public HomePage addSongToFavorite (){
+        waitForVisibility(unlikedSongBtn);
+        waitForElementToBeClickable(unlikedSongBtn);
+        unlikedSongBtn.click();
+        return this;
+    }
+
+    @FindBy (xpath = "//td[@class='title' and text()='M33 Project - Emotional Soundtrack']")
+    WebElement songTitle;
+
+    public String getTextOfSongTitle (){
+        waitForVisibility(songTitle);
+        return songTitle.getText();
+    }
+
+    @FindBy (xpath = "//a[@href='#!/favorites']\n")
+    WebElement playlistFavorites;
+
+    public HomePage goToFavorites (){
+    waitForVisibility(playlistFavorites);
+    waitForElementToBeClickable(playlistFavorites);
+    playlistFavorites.click();
+    return this;
+}
+    @FindBy (css = ".favorites .virtual-scroller .title")
+    WebElement favoriteSongTitle;
+
+    public String getTextOfFavoritesTitleSong (){
+        waitForVisibility(favoriteSongTitle);
+        return favoriteSongTitle.getText();
+}
+
+    @FindBy(css = ".favorites [draggable='true'] .text-maroon")
+    List<WebElement> likedSongs;
+    public HomePage unselectAllFavorites() throws InterruptedException {
+        for (WebElement song : likedSongs) {
+            song.click();
+            Thread.sleep(500);
+        }
         return this;
     }
 }

@@ -42,7 +42,7 @@ public class BaseTest {
                 .clickSubmit();
                 Assert.assertTrue(homePage.getUserAvatar().isDisplayed());
     }
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() { if (driver != null) { driver.quit(); }}
     }
 

@@ -66,5 +66,20 @@ public void renamePlaylist() throws InterruptedException {
                 .choosePlayOption();
         Thread.sleep(2000);
     }
+    @Test
+    public void addSongToFavorites () throws InterruptedException {
+        homePage = new HomePage(driver);
+        basePage = new BasePage(driver);
+        basePage.navigateToHomePage();
+        homePage.goToFavorites()
+                .unselectAllFavorites()
+                .clickAllSongs();
+        String title = homePage.getTextOfSongTitle();
+               homePage.addSongToFavorite()
+                       .goToFavorites();
+        String favoriteTitle = String.valueOf(homePage.getTextOfFavoritesTitleSong());
+        Assert.assertEquals(title,favoriteTitle);
+
+    }
 
 }
