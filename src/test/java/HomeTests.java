@@ -1,85 +1,40 @@
-import Pages.BasePage;
-import Pages.HomePage;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class
 HomeTests extends BaseTest {
-    HomePage homePage;
-    BasePage basePage;
 
 @Test
 public void renamePlaylist() throws InterruptedException {
-    homePage = new HomePage(driver);
-
-    homePage.waitPlusBtn()
-            .addNewPlaylistBtn()
+    homePage.waitPlusBtn();
+            playlistPage.addNewPlaylistBtn()
             .chooseNewPlaylist()
             .playlistNameInput()
-            .verifyPlaylistCreated()
-            .waitPlusBtn()
-            .doubleClickPlaylist1()
+            .verifyPlaylistCreated();
+            homePage.waitPlusBtn();
+            playlistPage.doubleClickPlaylist1()
             .renamePlaylist();
     Thread.sleep(1000);
-            homePage.verifyPlaylistUpdated();
+            playlistPage.verifyPlaylistUpdated();
 }
     @Test
     public void deletePlaylist() throws InterruptedException {
-        homePage = new HomePage(driver);
-        homePage.waitPlusBtn()
-                .addNewPlaylistBtn()
+        homePage.waitPlusBtn();
+                playlistPage.addNewPlaylistBtn()
                 .chooseNewPlaylist()
                 .playlistNameInput()
                 .verifyPlaylistCreated()
                 .click1stPlaylist()
                 .deletePlaylist();
         Thread.sleep(2000);
-        homePage.messagePlaylistDeletedDisplayed();
+        playlistPage.messagePlaylistDeletedDisplayed();
     }
     @Test
     public void playSongWithPlayBtn(){
-        homePage = new HomePage(driver);
         homePage.hoverSidePlayer()
                 .playNextSongBtn()
                 .clickPlayBtn()
                 .verifySongIsPlaying();
     }
-    @Test
-    public void addSongToPlaylist() throws InterruptedException {
-        homePage = new HomePage(driver);
-        basePage = new BasePage(driver);
-        basePage.navigateToHomePage();
-        homePage.clickAllSongs()
-                .clickSong()
-                .clickAddToButton()
-                .choosePlaylist();
-        Thread.sleep(2000);
-                homePage.verifyNotificationMessage();
-    }
-    @Test
-    public void playSongWithContextClick () throws InterruptedException {
-        homePage = new HomePage(driver);
-        basePage = new BasePage(driver);
-        basePage.navigateToHomePage();
-        homePage.clickAllSongs()
-                .clickSongContextClick()
-                .choosePlayOption();
-        Thread.sleep(2000);
-    }
-    @Test
-    public void addSongToFavorites () throws InterruptedException {
-        homePage = new HomePage(driver);
-        basePage = new BasePage(driver);
-        basePage.navigateToHomePage();
-        homePage.goToFavorites()
-                .unselectAllFavorites()
-                .clickAllSongs();
-        String title = homePage.getTextOfSongTitle();
-               homePage.addSongToFavorite()
-                       .goToFavorites();
-        String favoriteTitle = String.valueOf(homePage.getTextOfFavoritesTitleSong());
-        Assert.assertEquals(title,favoriteTitle);
 
-    }
 
 }

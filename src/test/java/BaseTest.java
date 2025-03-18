@@ -1,6 +1,6 @@
-import Pages.HomePage;
-import Pages.LoginPage;
+import Pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,8 +16,20 @@ public class BaseTest {
     public WebDriver driver = null;
     public WebDriverWait wait = null;
     public ChromeOptions options = null;
+
     LoginPage loginPage;
     HomePage homePage;
+    BasePage basePage;
+    SongsPage songsPage;
+    PlaylistPage playlistPage;
+
+    @BeforeEach
+    public void setUp() {
+        homePage = new HomePage(driver);
+        basePage = new BasePage(driver);
+        songsPage = new SongsPage(driver);
+        playlistPage = new PlaylistPage(driver);
+    }
 
     @BeforeSuite
     public void setupClass() { WebDriverManager.chromedriver().setup();}
