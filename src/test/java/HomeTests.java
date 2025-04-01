@@ -5,6 +5,7 @@ HomeTests extends BaseTest {
 
 @Test
 public void renamePlaylist() throws InterruptedException {
+    login();
     homePage.waitPlusBtn();
             playlistPage.addNewPlaylistBtn()
             .chooseNewPlaylist()
@@ -15,9 +16,11 @@ public void renamePlaylist() throws InterruptedException {
             .renamePlaylist();
     Thread.sleep(1000);
             playlistPage.verifyPlaylistUpdated();
-}
+    }
+
     @Test
     public void deletePlaylist() throws InterruptedException {
+        login();
         homePage.waitPlusBtn();
                 playlistPage.addNewPlaylistBtn()
                 .chooseNewPlaylist()
@@ -30,6 +33,7 @@ public void renamePlaylist() throws InterruptedException {
     }
     @Test
     public void playSongWithPlayBtn(){
+        login();
         homePage.hoverSidePlayer()
                 .playNextSongBtn()
                 .clickPlayBtn()

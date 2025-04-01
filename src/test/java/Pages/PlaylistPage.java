@@ -45,6 +45,8 @@ public class PlaylistPage extends BasePage {
         return this;
     }
     public PlaylistPage addNewPlaylistBtn() {
+        waitForVisibility(addPlaylistBtn);
+        waitForElementToBeClickable(addPlaylistBtn);
         addPlaylistBtn.click();
         return this;
     }

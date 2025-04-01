@@ -5,6 +5,7 @@ public class SongsTests extends BaseTest{
 
     @Test
     public void addSongToPlaylist() throws InterruptedException {
+        login();
         basePage.navigateToHomePage();
         homePage.clickAllSongs();
         songsPage.clickSong()
@@ -15,6 +16,7 @@ public class SongsTests extends BaseTest{
     }
     @Test
     public void playSongWithContextClick () throws InterruptedException {
+        login();
         basePage.navigateToHomePage();
         homePage.clickAllSongs();
         songsPage.clickSongContextClick()
@@ -22,7 +24,8 @@ public class SongsTests extends BaseTest{
         Thread.sleep(2000);
     }
     @Test
-    public void addSongToFavorites () throws InterruptedException {
+    public void addSongToFavorites () {
+        login();
         basePage.navigateToHomePage();
         //homePage.goToFavorites()
         //.unselectAllFavorites()
