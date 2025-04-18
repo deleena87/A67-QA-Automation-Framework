@@ -1,7 +1,7 @@
 import org.testng.annotations.Test;
 
 public class
-HomeTests extends BaseTest {
+HomeTests extends TestBase {
 
 @Test
 public void renamePlaylist() throws InterruptedException {

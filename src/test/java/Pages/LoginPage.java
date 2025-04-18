@@ -14,7 +14,7 @@ public class LoginPage extends BasePage
     @FindBy(xpath ="//input[@type='password']" )
     WebElement passwordField;
     @FindBy(xpath = "//button[@type='submit']")
-    WebElement submitBtn;
+    public WebElement submitBtn;
 
     public LoginPage emailInput (String email)
         { emailField.click();

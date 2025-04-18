@@ -1,6 +1,7 @@
 package Pages;
 
 import com.github.javafaker.Faker;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -59,5 +60,11 @@ public class BasePage {
     }
     public void waitForTextToBePresentedInElement(WebElement element, String text){
         wait.until(ExpectedConditions.textToBePresentInElement(element,text));
+    }
+    public BasePage scrollToElement(WebElement element)
+    {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        return this;
     }
 }

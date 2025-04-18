@@ -1,7 +1,7 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SongsTests extends BaseTest{
+public class SongsTests extends TestBase {
 
     @Test
     public void addSongToPlaylist() throws InterruptedException {
