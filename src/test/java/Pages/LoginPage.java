@@ -1,9 +1,9 @@
 package Pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class LoginPage extends BasePage
 {
@@ -15,6 +15,13 @@ public class LoginPage extends BasePage
     WebElement passwordField;
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement submitBtn;
+    @FindBy(css = "a[href=\"registration\"]")
+    WebElement forgotPassword;
+    @FindBy(css = "div.messages")
+    WebElement resetPasswordMsg;
+    @FindBy(xpath = "//input[@id='button']" )
+    WebElement registrationSubmitBtn;
+
 
     public LoginPage emailInput (String email)
         { emailField.click();
@@ -26,10 +33,23 @@ public class LoginPage extends BasePage
             passwordField.sendKeys(password);
             return this;
         }
-    public LoginPage clickSubmit ()
+    public void clickSubmit ()
         {
             submitBtn.click();
-            return this;
         }
+        public void clickRegistrationSubmitBtn()
+        {
+            registrationSubmitBtn.click();
+        }
+    public void iClickForgotPassword()
+    {
+        forgotPassword.click();
+    }
+    public void getForgotPasswordMessage (String expectedMessage)
+    {
+        waitForVisibility(resetPasswordMsg);
+        String actualMessage = resetPasswordMsg.getText().trim();
+        Assert.assertEquals(actualMessage, expectedMessage);
+    }
 }
 

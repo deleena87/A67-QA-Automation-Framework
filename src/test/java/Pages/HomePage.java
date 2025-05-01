@@ -34,7 +34,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//button[normalize-space(text())='View All']")
     WebElement viewAll;
 
-    public WebElement getUserAvatar() {
+    public WebElement getUserAvatar()
+    {
+        waitForVisibility(userAvatarIcon);
         return userAvatarIcon;
     }
 

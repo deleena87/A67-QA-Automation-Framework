@@ -11,6 +11,8 @@
             <class name="HomeTests"/>
             <class name="SongsTests"/>
             <class name="ProfileTests"/>
+            <class name="CucumberRunner"/>
+
 
         </classes>
     </test>
