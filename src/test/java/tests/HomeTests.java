@@ -1,10 +1,15 @@
+package tests;
+
+import base.TestBase;
 import org.testng.annotations.Test;
 
 public class
 HomeTests extends TestBase {
 
 @Test
-public void renamePlaylist() throws InterruptedException {
+public void renamePlaylist() throws InterruptedException
+{
+    login();
     homePage.waitPlusBtn();
             playlistPage.addNewPlaylistBtn()
             .chooseNewPlaylist()
@@ -17,7 +22,9 @@ public void renamePlaylist() throws InterruptedException {
             playlistPage.verifyPlaylistUpdated();
 }
     @Test
-    public void deletePlaylist() throws InterruptedException {
+    public void deletePlaylist() throws InterruptedException
+    {
+        login();
         homePage.waitPlusBtn();
                 playlistPage.addNewPlaylistBtn()
                 .chooseNewPlaylist()
@@ -29,7 +36,9 @@ public void renamePlaylist() throws InterruptedException {
         playlistPage.messagePlaylistDeletedDisplayed();
     }
     @Test
-    public void playSongWithPlayBtn(){
+    public void playSongWithPlayBtn()
+    {
+        login();
         homePage.hoverSidePlayer()
                 .playNextSongBtn()
                 .clickPlayBtn()

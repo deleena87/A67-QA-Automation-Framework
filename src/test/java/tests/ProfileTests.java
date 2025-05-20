@@ -1,3 +1,6 @@
+package tests;
+
+import base.TestBase;
 import org.testng.annotations.Test;
 
 public class ProfileTests extends TestBase
@@ -5,6 +8,7 @@ public class ProfileTests extends TestBase
     @Test
     public void profileNameChange () throws InterruptedException
     {
+        login();
        profilePage.clickProfileTab()
                .profileNameInput()
                .currentPasswordInput()
@@ -14,8 +18,9 @@ public class ProfileTests extends TestBase
     @Test
     public void changeCurrentTheme ()
     {
-    profilePage.clickProfileTab()
-            .clickVioletTheme()
+        login();
+        profilePage.clickProfileTab()
+                .clickVioletTheme()
             .isVioletThemeSelected();
     }
 }

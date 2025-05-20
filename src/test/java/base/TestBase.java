@@ -1,3 +1,5 @@
+package base;
+import utils.TestDataProvider;
 import Pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -15,12 +17,12 @@ public class TestBase
     public WebDriverWait wait = null;
     public ChromeOptions options = null;
 
-    LoginPage loginPage;
-    HomePage homePage;
-    BasePage basePage;
-    SongsPage songsPage;
-    PlaylistPage playlistPage;
-    ProfilePage profilePage;
+    protected LoginPage loginPage;
+    protected HomePage homePage;
+    protected BasePage basePage;
+    protected SongsPage songsPage;
+    protected PlaylistPage playlistPage;
+    protected ProfilePage profilePage;
 
     @BeforeSuite
     public void setupClass() { WebDriverManager.chromedriver().setup();}
@@ -28,7 +30,7 @@ public class TestBase
     @BeforeMethod
     @Parameters({"baseURL"})
 
-    public void setUp(String baseURL)
+    public void setUpDriver(String baseURL)
     {
         options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
@@ -46,7 +48,10 @@ public class TestBase
         songsPage = new SongsPage(driver);
         playlistPage = new PlaylistPage(driver);
         profilePage = new ProfilePage(driver);
+    }
 
+    public void login ()
+    {
         String[] validCredentials = TestDataProvider.getValidLoginData();
         String email = validCredentials[0];
         String password = validCredentials[1];

@@ -1,4 +1,6 @@
 package stepDefinitions;
+import Pages.BasePage;
+import base.TestBase;
 
 import Pages.HomePage;
 import Pages.LoginPage;
@@ -19,11 +21,8 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-public class LoginSteps
+public class LoginSteps extends TestBase
 {
-    WebDriver driver;
-    WebDriverWait wait;
-
     @Before
     public void openBrowser()
     {
@@ -61,13 +60,15 @@ public class LoginSteps
     public void iClickSubmitButton()
     {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.clickRegistrationSubmitBtn();
+        loginPage.clickSubmit();
     }
 
     @Then("I logged in")
     public void iLoggedIn()
     {
         HomePage homePage = new HomePage(driver);
+        BasePage basePage = new BasePage(driver);
+        basePage.waitForVisibility(homePage.getUserAvatar());
         Assert.assertTrue(homePage.getUserAvatar().isDisplayed());
     }
 

@@ -1,3 +1,5 @@
+package utils;
+
 public class TestDataProvider
 {
     @org.testng.annotations.DataProvider(name = "ValidLoginData")

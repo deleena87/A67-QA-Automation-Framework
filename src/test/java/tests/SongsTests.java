@@ -1,10 +1,15 @@
+package tests;
+
+import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SongsTests extends TestBase {
 
     @Test
-    public void addSongToPlaylist() throws InterruptedException {
+    public void addSongToPlaylist() throws InterruptedException
+    {
+        login();
         basePage.navigateToHomePage();
         homePage.clickAllSongs();
         songsPage.clickSong()
@@ -14,7 +19,9 @@ public class SongsTests extends TestBase {
         homePage.verifyNotificationMessage();
     }
     @Test
-    public void playSongWithContextClick () throws InterruptedException {
+    public void playSongWithContextClick () throws InterruptedException
+    {
+        login();
         basePage.navigateToHomePage();
         homePage.clickAllSongs();
         songsPage.clickSongContextClick()
@@ -22,7 +29,9 @@ public class SongsTests extends TestBase {
         Thread.sleep(2000);
     }
     @Test
-    public void addSongToFavorites () throws InterruptedException {
+    public void addSongToFavorites () throws InterruptedException
+    {
+        login();
         basePage.navigateToHomePage();
         //homePage.goToFavorites()
         //.unselectAllFavorites()

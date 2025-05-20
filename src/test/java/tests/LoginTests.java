@@ -1,5 +1,8 @@
+package tests;
+import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.TestDataProvider;
 
 public class LoginTests extends TestBase {
 
